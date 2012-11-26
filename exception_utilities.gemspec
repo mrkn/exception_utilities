@@ -3,10 +3,10 @@ require File.expand_path('../lib/exception_utilities/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Kenta Murata"]
-  gem.email         = ["mrkn@cookpad.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
-  gem.homepage      = ""
+  gem.email         = ["mrkn@mrkn.jp"]
+  gem.description   = %q{Utilities for handling exceptions}
+  gem.summary       = %q{Exception handling utilities}
+  gem.homepage      = "http://github.com/mrkn/exception_utilities"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
