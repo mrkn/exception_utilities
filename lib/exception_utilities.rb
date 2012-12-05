@@ -21,6 +21,12 @@ module ExceptionUtilities
       end
     end
   end
+
+  def exceptions_with_message(pattern)
+    exception_matcher do |exception|
+      pattern === exception.message rescue false
+    end
+  end
 end
 
 module Kernel
@@ -30,5 +36,9 @@ module Kernel
 
   def exception_matcher(*args, &block)
     ExceptionUtilities.exception_matcher(*args, &block)
+  end
+
+  def exceptions_with_message(*args, &block)
+    ExceptionUtilities.exceptions_with_message(*args, &block)
   end
 end

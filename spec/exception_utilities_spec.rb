@@ -61,7 +61,6 @@ describe ExceptionUtilities do
     end
   end
 
-
   describe '#exception_matcher' do
     context 'when called with a block' do
       context 'when subject.=== is called with an object' do
@@ -71,6 +70,28 @@ describe ExceptionUtilities do
           (exception_matcher {|x| x.confirm } === obj).should == :block_called
         end
       end
+    end
+  end
+
+  describe '#exceptions_with_message', :focus do
+    context 'when called with "foo bar"' do
+      subject { exceptions_with_message('foo bar') }
+
+      it { should === Exception.new('foo bar') }
+
+      it { should === RuntimeError.new('foo bar') }
+
+      it { should_not === 'foo bar' }
+    end
+
+    context 'when called with /foo bar/' do
+      subject { exceptions_with_message(/foo bar/) }
+
+      it { should === Exception.new('abc foo bar xyz') }
+
+      it { should === RuntimeError.new('abc foo bar xyz') }
+
+      it { should_not === 'abc foo bar xyz' }
     end
   end
 end
