@@ -73,7 +73,7 @@ describe ExceptionUtilities do
     end
   end
 
-  describe '#exceptions_with_message', :focus do
+  describe '#exceptions_with_message' do
     context 'when called with "foo bar"' do
       subject { exceptions_with_message('foo bar') }
 
