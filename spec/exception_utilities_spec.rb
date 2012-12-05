@@ -77,9 +77,23 @@ describe ExceptionUtilities do
     context 'when called with "foo bar"' do
       subject { exceptions_with_message('foo bar') }
 
-      it { should === Exception.new('foo bar') }
+      it { should_not === Exception.new('foo bar') }
+
+      it { should === StandardError.new('foo bar') }
 
       it { should === RuntimeError.new('foo bar') }
+
+      it { should_not === 'foo bar' }
+    end
+
+    context 'when called with "foo bar", RuntimeError, and TypeError' do
+      subject { exceptions_with_message('foo bar', RuntimeError, TypeError) }
+
+      it { should_not === Exception.new('foo bar') }
+
+      it { should === RuntimeError.new('foo bar') }
+
+      it { should === TypeError.new('foo bar') }
 
       it { should_not === 'foo bar' }
     end
@@ -87,9 +101,23 @@ describe ExceptionUtilities do
     context 'when called with /foo bar/' do
       subject { exceptions_with_message(/foo bar/) }
 
-      it { should === Exception.new('abc foo bar xyz') }
+      it { should_not === Exception.new('abc foo bar xyz') }
+
+      it { should === StandardError.new('abc foo bar xyz') }
 
       it { should === RuntimeError.new('abc foo bar xyz') }
+
+      it { should_not === 'abc foo bar xyz' }
+    end
+
+    context 'when called with /foo bar/, RuntimeError, and TypeError' do
+      subject { exceptions_with_message(/foo bar/, RuntimeError, TypeError) }
+
+      it { should_not === Exception.new('abc foo bar xyz') }
+
+      it { should === RuntimeError.new('abc foo bar xyz') }
+
+      it { should === TypeError.new('abc foo bar xyz') }
 
       it { should_not === 'abc foo bar xyz' }
     end

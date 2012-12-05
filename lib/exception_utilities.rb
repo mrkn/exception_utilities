@@ -22,9 +22,15 @@ module ExceptionUtilities
     end
   end
 
-  def exceptions_with_message(pattern)
+  def exceptions_with_message(pattern, *exception_classes)
+    exception_classes << StandardError if exception_classes.empty?
     exception_matcher do |exception|
-      pattern === exception.message rescue false
+      case exception
+      when *exception_classes
+        pattern === exception.message rescue false
+      else
+        false
+      end
     end
   end
 end
