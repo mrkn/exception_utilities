@@ -14,4 +14,11 @@ Gem::Specification.new do |gem|
   gem.name          = "exception_utilities"
   gem.require_paths = ["lib"]
   gem.version       = ExceptionUtilities::VERSION
+
+  gem.add_development_dependency('rspec', '~> 2.12.0')
+  if RUBY_VERSION < '1.9'
+    gem.add_development_dependency('rcov', '~> 1.0.0')
+  else
+    gem.add_development_dependency('simplecov-rcov', '~> 0.2.3')
+  end
 end
