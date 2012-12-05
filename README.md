@@ -23,6 +23,8 @@ Or install it yourself as:
 Use ```exceptions_ignoring_eval```:
 
 ```ruby
+require 'exception_utilities/kernel'
+
 exceptions_ignoring_eval(LoadError) do
   require 'foo'
 end
@@ -33,6 +35,8 @@ end
 Use ```exceptions_with_message```:
 
 ```ruby
+require 'exception_utilities/kernel'
+
 begin
   SomeModel.create!
 rescue exceptions_with_message(/\Bfoo_bar_id\B/, ActiveRecord::RecordNotFound)
@@ -45,6 +49,8 @@ end
 Use ```exception_matcher```:
 
 ```ruby
+require 'exception_utilities/kernel'
+
 begin
   # some routine
 rescue exception_matcher {|exc| exc.count <=1 }
