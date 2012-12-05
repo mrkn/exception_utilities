@@ -60,4 +60,17 @@ describe ExceptionUtilities do
       end
     end
   end
+
+
+  describe '#exception_matcher' do
+    context 'when called with a block' do
+      context 'when subject.=== is called with an object' do
+        it 'should call the block with the object' do
+          obj = double('object')
+          obj.should_receive(:confirm).and_return(:block_called)
+          (exception_matcher {|x| x.confirm } === obj).should == :block_called
+        end
+      end
+    end
+  end
 end
