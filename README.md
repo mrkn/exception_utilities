@@ -1,6 +1,6 @@
 # ExceptionUtilities
 
-TODO: Write a gem description
+Utilities for handling exceptions.
 
 ## Installation
 
@@ -18,7 +18,41 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Ignoring specific exceptions
+
+Use ```exceptions_ignoring_eval```:
+
+```ruby
+exceptions_ignoring_eval(LoadError) do
+  require 'foo'
+end
+```
+
+### Rescue exceptions having specific message
+
+Use ```exceptions_with_message```:
+
+```ruby
+begin
+  SomeModel.create!
+rescue exceptions_with_message(/\Bfoo_bar_id\B/, ActiveRecord::RecordNotFound)
+  Rails.logger.debug([$!.message, *$!.backtrace].join("\n"))
+end
+```
+
+### Creating exception matcher
+
+Use ```exception_matcher```:
+
+```ruby
+begin
+  # some routine
+rescue exception_matcher {|exc| exc.count <=1 }
+  # ignore
+rescue exception_matcher {|exc| exc.count > 1 }
+  raise
+end
+```
 
 ## Contributing
 
