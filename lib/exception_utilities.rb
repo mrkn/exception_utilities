@@ -9,9 +9,11 @@ module ExceptionUtilities
     unless modules.all? {|ec| Module === ec }
       raise Error, 'only Module instances are accepted'
     end
-    yield
-  rescue *modules => exception
-    exception
+    begin
+      yield
+    rescue *modules => exception
+      exception
+    end
   end
 
   def exception_matcher(&block)
@@ -32,19 +34,5 @@ module ExceptionUtilities
         false
       end
     end
-  end
-end
-
-module Kernel
-  def exceptions_ignoring_eval(*modules, &block)
-    ExceptionUtilities.exceptions_ignoring_eval *modules, &block
-  end
-
-  def exception_matcher(*args, &block)
-    ExceptionUtilities.exception_matcher(*args, &block)
-  end
-
-  def exceptions_with_message(*args, &block)
-    ExceptionUtilities.exceptions_with_message(*args, &block)
   end
 end
